@@ -36,42 +36,28 @@ snapshot into a volume.
 Getting started
 ---------------
 
-Run through :doc:`../amazon/index` once, to get the hang of
-the mechanics.  Essentially you create a disk; attach it; format it; copy things
+You only have to run through this once.  Essentially you create a disk; attach it; format it; then copy things
 to and from it.
 
 Downloading and saving your data to a volume
 --------------------------------------------
 
-There are *many* different ways of getting big sequence files to and
-from Amazon.  The two that I mostly use are ``curl``, which downloads
-files from a Web site URL; and ``ncftp``, which is a robust FTP client
-that let's you get files from an FTP site.  Sequencing centers almost
-always make their data available in one of these two ways.
+Got to NCBI `PRJNA231566 SRA Bioproject  <http://www.ncbi.nlm.nih.gov/sra?linkname=bioproject_sra_all&from_uid=231566>`__ 
 
-.. note::
+Create and download a .csv spreadsheet file:
 
-   To use ncftp on your Amazon instance, you may need to install it::
+.. image:: ScreenShot_2015-10-04.png
 
-      apt-get -y install ncftp
+Then, you will have to upload it to your instance:
 
-For example, to retrieve a file from an FTP site, you would do something
-like::
+.. code:: 
 
-   cd /mnt
-   ncftp -u <username> ftp://path/to/FTP/site
+   rsync -e "ssh -i [key].pem" -avz [source directory] [user]@[instance ip]:[destination directory on instance]
 
-use ``cd`` to find the right directory, and then::
 
-   >> mget *
 
-to download the files.  Then type 'quit'.  
 
-You can also use ``curl`` to download files one at a time from Web or FTP sites.
-For example, to save a file from a website, you could use::
 
-   cd /mnt
-   curl -O http://path/to/file/on/website
 
 Once you have the files, figure out their size using ``du -sh`` (e.g. after the
 above, ``du -sh /mnt`` will tell you how much data you have saved under /mnt),
@@ -90,11 +76,6 @@ type::
 Some test data
 --------------
 
-To get started with multfile analysis and assembly, I've provided some
-test mRNAseq data from embryonic stages of *Nematostella vectensis*;
-the source is `this excellent paper
-<http://www.evodevojournal.com/content/4/1/16>`__ by Tulin et al., "A
-quantitative reference transcriptome for Nematostella vectensis".  The
 data is on snapshot 'snap-f5a9dea7', so go create a volume from that
 and mount it as '/data' to get started; to mount it read-only, do::
 
