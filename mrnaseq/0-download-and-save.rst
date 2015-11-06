@@ -54,16 +54,11 @@ Then, you will have to upload it to your instance:
 
    rsync -e "ssh -i [key].pem" -avz [source directory] [user]@[instance ip]:[destination directory on instance]
 
-
-
-
-
-
-Once you have the files, figure out their size using ``du -sh`` (e.g. after the
+Once you have the files, you can figure out their size by using ``du -sh`` (e.g. after the
 above, ``du -sh /mnt`` will tell you how much data you have saved under /mnt),
 and go create and attach a volume (see :doc:`../amazon/index`).
 
-Any files in the '/mnt' directory will be lost when the instance is stopped or
+** IMPORTANT: Any files in the '/mnt' directory will be lost when the instance is stopped or
 rebooted. However, files stored in the root, '/', directory will remain
 available. Thus, it's a good rule of thumb to do "savepoints" -- whenever you
 complete a big chunk of work, think about saving the data at that point.  I've
